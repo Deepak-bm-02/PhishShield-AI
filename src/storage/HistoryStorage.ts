@@ -1,23 +1,31 @@
 import { HistoryRecord } from '../types';
 
-// In a real application, this would use a database.
-// Since this is a backend-only mock for Sprint 1/2, we'll use an in-memory array.
-let historyStorage: HistoryRecord[] = [];
+export interface IHistoryRepository {
+  saveAnalysis(record: HistoryRecord): Promise<void>;
+  getHistory(): Promise<HistoryRecord[]>;
+  deleteHistory(id: string): Promise<void>;
+  filterHistory(scanType: string): Promise<HistoryRecord[]>;
+}
 
-export class HistoryStorage {
-  static async saveAnalysis(record: HistoryRecord): Promise<void> {
-    historyStorage.push(record);
+class InMemoryHistoryRepository implements IHistoryRepository {
+  private storage: HistoryRecord[] = [];
+
+  async saveAnalysis(record: HistoryRecord): Promise<void> {
+    this.storage.push(record);
   }
 
-  static async getHistory(): Promise<HistoryRecord[]> {
-    return [...historyStorage].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+  async getHistory(): Promise<HistoryRecord[]> {
+    return [...this.storage].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
   }
 
-  static async deleteHistory(id: string): Promise<void> {
-    historyStorage = historyStorage.filter(record => record.id !== id);
+  async deleteHistory(id: string): Promise<void> {
+    this.storage = this.storage.filter(record => record.id !== id);
   }
 
-  static async filterHistory(scanType: string): Promise<HistoryRecord[]> {
-    return historyStorage.filter(record => record.scanType === scanType);
+  async filterHistory(scanType: string): Promise<HistoryRecord[]> {
+    return this.storage.filter(record => record.scanType === scanType);
   }
 }
+
+// Export a singleton instance. Future DBs will just replace this export.
+export const HistoryStorage = new InMemoryHistoryRepository();

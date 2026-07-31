@@ -1,13 +1,16 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { config } from '../../config/env';
+import { geminiConfig, limitsConfig } from '../../config';
 import { AIServiceError } from '../../errors';
+import { SafeJsonParser } from '../../lib/json/SafeJsonParser';
+import { MetricsService } from '../../services/MetricsService';
+import { logger } from '../../lib/logger/logger';
 
 export class GeminiClient {
   private genAI: GoogleGenerativeAI;
   private modelName: string;
 
   constructor(modelName = 'gemini-2.5-flash') {
-    const apiKey = config.geminiApiKey;
+    const apiKey = geminiConfig.apiKey;
     if (!apiKey) {
       throw new AIServiceError('Gemini API Key is not configured.');
     }
@@ -17,6 +20,7 @@ export class GeminiClient {
 
   async generateJSON(prompt: string, retries = 3): Promise<any> {
     for (let attempt = 1; attempt <= retries; attempt++) {
+      const startTime = Date.now();
       try {
         const model = this.genAI.getGenerativeModel({
           model: this.modelName,
@@ -27,12 +31,16 @@ export class GeminiClient {
 
         const result = await Promise.race([
           model.generateContent(prompt),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 15000))
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), limitsConfig.apiTimeoutMs))
         ]);
 
+        const duration = Date.now() - startTime;
+        MetricsService.recordAiLatency(duration);
+
         const responseText = (result as any).response.text();
-        return JSON.parse(responseText);
+        return SafeJsonParser.parse(responseText);
       } catch (error: any) {
+        logger.warn(`Gemini API attempt ${attempt} failed: ${error.message}`);
         if (attempt === retries) {
           throw new AIServiceError(`Gemini request failed after ${retries} attempts: ${error.message}`);
         }

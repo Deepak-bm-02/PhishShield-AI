@@ -1,56 +1,55 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { qrAnalysisSchema } from '../../../../types/schemas';
 import { QRAnalyzer } from '../../../../engine/analyzers/QRAnalyzer';
 import { HistoryStorage } from '../../../../storage/HistoryStorage';
 import { APIError } from '../../../../errors';
+import { createRequestContext, getDuration } from '../../../../lib/requestContext';
+import { successResponse, failureResponse } from '../../../../lib/api/response';
+import { logger } from '../../../../lib/logger/logger';
+import { MetricsService } from '../../../../services/MetricsService';
 
 export async function POST(req: NextRequest) {
+  const ctx = createRequestContext(req);
+  MetricsService.recordRequest();
+
   try {
     const body = await req.json();
     
-    // Validation
     const parsed = qrAnalysisSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'Validation Error', details: parsed.error.format() },
-        { status: 400 }
-      );
+      logger.warn('Validation Error', ctx, parsed.error.format());
+      return failureResponse('Validation Error', 400, ctx, parsed.error.format());
     }
 
-    if (parsed.data.image.length > 7000000) {
-      return NextResponse.json({ error: 'Image too large. Maximum size is 5MB.' }, { status: 413 });
-    }
-
-    console.log('[API] Received QR analysis request');
+    logger.info('Received qr analysis request', ctx);
     
-    // Analyze
     const analyzer = new QRAnalyzer();
-    const startTime = Date.now();
     const report = await analyzer.analyze(parsed.data.image);
-    report.processingTime = Date.now() - startTime;
+    report.processingTime = getDuration(ctx);
     
-    console.log('[API] QR analysis completed:', report.verdict);
+    logger.info(`QR analysis completed: ${report.verdict}`, ctx);
 
-    // Persist History
     await HistoryStorage.saveAnalysis({
-      id: report.requestId!,
-      requestId: report.requestId!,
+      id: report.requestId || ctx.requestId,
+      requestId: report.requestId || ctx.requestId,
       scanType: 'qr',
-      timestamp: report.timestamp!,
+      timestamp: report.timestamp || ctx.timestamp,
       riskScore: report.riskScore,
       verdict: report.verdict,
       summary: report.summary
     });
 
-    return NextResponse.json(report);
+    MetricsService.recordScan(getDuration(ctx), true);
+    return successResponse(report, ctx);
     
   } catch (error: any) {
-    console.error('[API] Error in QR analysis:', error);
+    MetricsService.recordScan(getDuration(ctx), false);
+    logger.error('Error in qr analysis', ctx, error);
     
     if (error instanceof APIError) {
-      return NextResponse.json({ error: error.message }, { status: error.statusCode });
+      return failureResponse(error.message, error.statusCode, ctx);
     }
     
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return failureResponse('Internal Server Error', 500, ctx);
   }
 }

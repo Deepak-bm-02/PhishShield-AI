@@ -41,4 +41,5 @@ export interface HistoryRecord {
   riskScore: number;
   verdict: string;
   summary: string;
+  threatType?: string;
 }

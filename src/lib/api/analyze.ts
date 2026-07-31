@@ -7,12 +7,14 @@ async function fetchAPI(endpoint: string, payload: any): Promise<ThreatReport> {
     body: JSON.stringify(payload)
   });
 
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.error || 'API request failed');
+  const parsed = await res.json();
+
+  if (!res.ok || !parsed.success) {
+    throw new Error(parsed.error?.message || 'API request failed');
   }
 
-  return res.json();
+  // Unwrap the `{ data }` property from the standardized Response Helper
+  return parsed.data;
 }
 
 export const analyzeEmail = (content: string) => fetchAPI('/api/analyze/email', { content });
