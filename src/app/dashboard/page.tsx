@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useState, useMemo } from 'react';
-import { AppLayout } from '@/components/layout/AppLayout';
-import { Card, Button } from '@/components/ui';
+import { ClientOnly } from '@/components/ClientOnly';
+import { AppShell } from '@/components/layout/AppShell';
+import { Card, Button, Skeleton } from '@/components/ui';
 import { fetchHistory } from '@/lib/api/history';
 import { HistoryRecord } from '@/types';
 import { ShieldCheck, Activity, FileJson, FileText, DownloadCloud } from 'lucide-react';
@@ -100,10 +101,24 @@ export default function ThreatIntelligenceCenter() {
     window.print();
   };
 
-  if (loading) return <AppLayout><div className="text-center mt-20">Loading Intelligence...</div></AppLayout>;
+  if (loading) return (
+    <AppShell>
+      <div className="flex flex-col md:flex-row justify-between mb-8">
+        <div><Skeleton className="h-10 w-64 mb-2" /><Skeleton className="h-4 w-96" /></div>
+        <div className="flex gap-2"><Skeleton className="h-10 w-24" /><Skeleton className="h-10 w-24" /></div>
+      </div>
+      <div className="flex gap-4 mb-8"><Skeleton className="h-10 w-32" /><Skeleton className="h-10 w-32" /></div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+        <Skeleton className="h-24 w-full" /><Skeleton className="h-24 w-full" /><Skeleton className="h-24 w-full" /><Skeleton className="h-24 w-full" />
+      </div>
+      <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <Skeleton className="h-64 w-full" /><Skeleton className="md:col-span-2 h-64 w-full" />
+      </div>
+    </AppShell>
+  );
 
   return (
-    <AppLayout>
+    <AppShell>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold">Threat Intelligence Center</h1>
@@ -165,8 +180,9 @@ export default function ThreatIntelligenceCenter() {
         <Card className="flex flex-col items-center justify-center text-center">
           <h2 className="font-semibold text-lg w-full text-left mb-4">Security Score</h2>
           <div className="h-48 w-full relative flex items-center justify-center">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadialBarChart 
+            <ClientOnly fallback={<div className="h-full w-full bg-zinc-900/50 rounded-full animate-pulse" />}>
+              <ResponsiveContainer width="100%" height="100%">
+                <RadialBarChart 
                 cx="50%" cy="50%" 
                 innerRadius="70%" outerRadius="100%" 
                 barSize={20} data={[{ name: 'Score', value: protectionScore, fill: protectionScore > 80 ? '#10b981' : protectionScore > 50 ? '#f59e0b' : '#ef4444' }]} 
@@ -175,6 +191,7 @@ export default function ThreatIntelligenceCenter() {
                 <RadialBar background dataKey="value" cornerRadius={10} />
               </RadialBarChart>
             </ResponsiveContainer>
+            </ClientOnly>
             <div className="absolute flex flex-col items-center justify-center pb-6">
               <span className="text-4xl font-bold">{protectionScore}</span>
               <span className="text-sm text-neutral">/ 100</span>
@@ -187,8 +204,9 @@ export default function ThreatIntelligenceCenter() {
         <Card className="md:col-span-2">
           <h2 className="font-semibold text-lg mb-4">Severity Distribution</h2>
           <div className="h-48">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={severityData} layout="vertical" margin={{ top: 0, right: 30, left: 20, bottom: 0 }}>
+            <ClientOnly fallback={<div className="h-full w-full bg-zinc-900/50 animate-pulse" />}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={severityData} layout="vertical" margin={{ top: 0, right: 30, left: 20, bottom: 0 }}>
                 <XAxis type="number" hide />
                 <YAxis dataKey="name" type="category" width={80} tick={{fill: '#888'}} axisLine={false} tickLine={false} />
                 <Tooltip cursor={{fill: 'rgba(255,255,255,0.05)'}} contentStyle={{backgroundColor: '#1e1e24', border: 'none', borderRadius: '8px'}} />
@@ -199,6 +217,7 @@ export default function ThreatIntelligenceCenter() {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
+            </ClientOnly>
           </div>
         </Card>
       </div>
@@ -208,8 +227,9 @@ export default function ThreatIntelligenceCenter() {
         <Card>
           <h2 className="font-semibold text-lg mb-4">Scan Distribution</h2>
           <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
+            <ClientOnly fallback={<div className="h-full w-full bg-zinc-900/50 animate-pulse" />}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
                 <Pie data={distributionData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
                   {distributionData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -219,6 +239,7 @@ export default function ThreatIntelligenceCenter() {
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
+            </ClientOnly>
           </div>
         </Card>
 
@@ -226,8 +247,9 @@ export default function ThreatIntelligenceCenter() {
         <Card>
           <h2 className="font-semibold text-lg mb-4">Top Threat Categories</h2>
           <div className="h-64">
-            {categoryData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
+            <ClientOnly fallback={<div className="h-full w-full bg-zinc-900/50 animate-pulse" />}>
+              {categoryData.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={categoryData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                   <XAxis dataKey="name" tick={{fontSize: 12, fill: '#888'}} axisLine={false} tickLine={false} />
                   <YAxis hide />
@@ -235,9 +257,10 @@ export default function ThreatIntelligenceCenter() {
                   <Bar dataKey="count" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
-            ) : (
-              <div className="h-full flex items-center justify-center text-neutral">No threats detected yet.</div>
-            )}
+              ) : (
+                <div className="h-full flex items-center justify-center text-neutral">No threats detected yet.</div>
+              )}
+            </ClientOnly>
           </div>
         </Card>
       </div>
@@ -282,6 +305,6 @@ export default function ThreatIntelligenceCenter() {
           </div>
         </Card>
       </div>
-    </AppLayout>
+    </AppShell>
   );
 }

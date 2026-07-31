@@ -9,6 +9,12 @@ export enum ErrorCode {
   RATE_LIMITED = 'RATE_LIMITED',
   INTERNAL_ERROR = 'INTERNAL_ERROR',
   CONFIGURATION_ERROR = 'CONFIGURATION_ERROR',
+  MODEL_NOT_FOUND = 'MODEL_NOT_FOUND',
+  MODEL_UNAVAILABLE = 'MODEL_UNAVAILABLE',
+  INVALID_JSON = 'INVALID_JSON',
+  SAFETY_BLOCK = 'SAFETY_BLOCK',
+  AUTH_FAILED = 'AUTH_FAILED',
+  UNKNOWN_ERROR = 'UNKNOWN_ERROR',
 }
 
 export class APIError extends Error {
@@ -26,8 +32,14 @@ export class ValidationError extends APIError {
 }
 
 export class AIServiceError extends APIError {
-  constructor(public message: string) {
-    super(message, 502, ErrorCode.INTERNAL_ERROR);
+  constructor(
+    public message: string,
+    public code: ErrorCode = ErrorCode.UNKNOWN_ERROR,
+    public statusCode: number = 502,
+    public retryable: boolean = false,
+    public source: string = 'Gemini'
+  ) {
+    super(message, statusCode, code);
     this.name = 'AIServiceError';
   }
 }

@@ -30,6 +30,12 @@ Return ONLY a valid JSON object with the following schema:
   "preventionTips": string[]
 }
 
+CRITICAL: You must respond ONLY with a raw JSON object.
+Do not use markdown.
+Do not use code fences like \`\`\`json.
+Do not explain your reasoning.
+Return valid JSON matching the exact ThreatReport schema above.
+
 OCR Text:
 """
 ${ocrText}
