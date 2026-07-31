@@ -19,5 +19,22 @@ async function fetchAPI(endpoint: string, payload: any): Promise<ThreatReport> {
 
 export const analyzeEmail = (content: string) => fetchAPI('/api/analyze/email', { content });
 export const analyzeUrl = (content: string) => fetchAPI('/api/analyze/url', { content });
-export const analyzeScreenshot = (image: string) => fetchAPI('/api/analyze/screenshot', { image });
-export const analyzeQr = (image: string) => fetchAPI('/api/analyze/qr', { image });
+
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = error => reject(error);
+  });
+};
+
+export const analyzeScreenshot = async (image: string | File) => {
+  const base64Image = typeof image === 'string' ? image : await fileToBase64(image);
+  return fetchAPI('/api/analyze/screenshot', { image: base64Image });
+};
+
+export const analyzeQr = async (image: string | File) => {
+  const base64Image = typeof image === 'string' ? image : await fileToBase64(image);
+  return fetchAPI('/api/analyze/qr', { image: base64Image });
+};

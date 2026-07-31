@@ -14,14 +14,21 @@ export class QRAnalyzer {
 
   async analyze(base64Image: string): Promise<ThreatReport> {
     logger.info(`[Analyzer] Decoding QR Image`);
+    const decodeStart = Date.now();
     const decodedText = await QRDecoder.decode(base64Image);
+    const decodeDuration = Date.now() - decodeStart;
     
-    logger.info(`[Analyzer] Processing QR content: ${decodedText.substring(0, 50)}...`);
+    logger.info(`[Analyzer] Processing QR content: ${decodedText.substring(0, 50)}... | Decode duration: ${decodeDuration}ms`);
     
     const prompt = QRPromptBuilder.build(decodedText);
     
     try {
+      const geminiStart = Date.now();
       const geminiData = await this.geminiClient.generateJSON(prompt);
+      const geminiDuration = Date.now() - geminiStart;
+      
+      logger.info(`[Analyzer] Gemini generated JSON. | Gemini duration: ${geminiDuration}ms`);
+      
       const riskResult = RiskEngine.calculateRisk(geminiData);
       const report = ThreatFormatter.format('qr', riskResult, geminiData);
       

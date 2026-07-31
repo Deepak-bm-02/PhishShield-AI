@@ -7,7 +7,8 @@ export default function ScreenshotScannerPage() {
   return (
     <ScannerFramework
       title="Screenshot Scanner"
-      description="Upload a screenshot to extract text and analyze for threats via OCR."
+      description="Upload screenshots of suspicious messages or emails for OCR and visual analysis."
+      scanType="screenshot"
       analyzeAction={analyzeScreenshot}
       isImage={true}
       validateInput={(val) => !val ? 'Please upload a screenshot image.' : null}

@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       return failureResponse('Validation Error', 400, ctx, parsed.error.format());
     }
 
-    logger.info('Received screenshot analysis request', ctx);
+    logger.info(`Received screenshot analysis request. Image length: ${parsed.data.image.length} characters.`, ctx);
     
     const analyzer = new ScreenshotAnalyzer();
     const report = await analyzer.analyze(parsed.data.image);

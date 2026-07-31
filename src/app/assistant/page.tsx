@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
+import { StorageService } from '@/lib/storage';
+import { HistoryRecord } from '@/types';
 import { AppShell } from '@/components/layout/AppShell';
 import { Card, Button, Input, AlertDialog } from '@/components/ui';
 import { Send, Bot, User, Trash2, Copy, Check } from 'lucide-react';
@@ -57,6 +59,15 @@ export default function AssistantPage() {
     if (lowerInput.includes('phishing')) responseText = KNOWLEDGE_BASE.phishing;
     else if (lowerInput.includes('malware')) responseText = KNOWLEDGE_BASE.malware;
     else if (lowerInput.includes('qr') || lowerInput.includes('quishing')) responseText = KNOWLEDGE_BASE.qr;
+    else if (lowerInput.includes('history') || lowerInput.includes('recent') || lowerInput.includes('scan')) {
+      const history = StorageService.getHistory();
+      if (history.length > 0) {
+        const latest = history[0];
+        responseText = `Your most recent scan was a **${latest.scanType.toUpperCase()}** scan on ${new Date(latest.timestamp).toLocaleDateString()}.\n\n**Verdict**: ${latest.verdict}\n**Summary**: ${latest.summary}`;
+      } else {
+        responseText = "You haven't performed any scans yet. Run a scan from the Dashboard!";
+      }
+    }
     else if (lowerInput.includes('hello') || lowerInput.includes('hi')) responseText = "Hello! I am ready to assist you with security queries.";
 
     setTimeout(() => {
@@ -67,6 +78,7 @@ export default function AssistantPage() {
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
+    setCopiedId(id);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };

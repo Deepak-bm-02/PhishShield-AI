@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       return failureResponse('Validation Error', 400, ctx, parsed.error.format());
     }
 
-    logger.info('Received qr analysis request', ctx);
+    logger.info(`Received qr analysis request. Image length: ${parsed.data.image.length} characters.`, ctx);
     
     const analyzer = new QRAnalyzer();
     const report = await analyzer.analyze(parsed.data.image);

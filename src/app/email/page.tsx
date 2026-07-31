@@ -8,6 +8,7 @@ export default function EmailScannerPage() {
     <ScannerFramework
       title="Email Scanner"
       description="Analyze raw EML files or paste email content to detect phishing indicators."
+      scanType="email"
       analyzeAction={analyzeEmail}
       validateInput={(val) => !val || val.trim().length < 10 ? 'Email content must be at least 10 characters long.' : null}
       inputComponent={({ value, onChange, error }) => (

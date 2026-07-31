@@ -3,7 +3,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { ClientOnly } from '@/components/ClientOnly';
 import { AppShell } from '@/components/layout/AppShell';
 import { Card, Button, Skeleton } from '@/components/ui';
-import { fetchHistory } from '@/lib/api/history';
+import { StorageService } from '@/lib/storage';
 import { HistoryRecord } from '@/types';
 import { ShieldCheck, Activity, FileJson, FileText, DownloadCloud } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, RadialBarChart, RadialBar, Legend } from 'recharts';
@@ -17,10 +17,16 @@ export default function ThreatIntelligenceCenter() {
   const [severityFilter, setSeverityFilter] = useState<string>('all');
 
   useEffect(() => {
-    fetchHistory().then(data => {
-      setHistory(data);
-      setLoading(false);
+    // Initial load
+    setHistory(StorageService.getHistory());
+    setLoading(false);
+
+    // Subscribe to changes
+    const unsubscribe = StorageService.subscribe(() => {
+      setHistory(StorageService.getHistory());
     });
+
+    return unsubscribe;
   }, []);
 
   const filteredHistory = useMemo(() => {

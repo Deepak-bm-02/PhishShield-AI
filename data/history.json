@@ -16,5 +16,50 @@
     "riskScore": 100,
     "verdict": "High Risk",
     "summary": "The URL attempts to impersonate the legitimate FitGirl Repacks website, which is a well-known video game repacking group. The official site is typically hosted on a different domain (.cc), making this domain a likely typosquatting or mirror site used to distribute cracked software, potentially bundled with malware or adware."
+  },
+  {
+    "id": "e3a2eef4-d50c-46cd-b8d9-e4a220940f36",
+    "requestId": "e3a2eef4-d50c-46cd-b8d9-e4a220940f36",
+    "scanType": "url",
+    "timestamp": "2026-07-31T11:19:24.349Z",
+    "riskScore": 0,
+    "verdict": "Safe",
+    "summary": "The URL https://poki.com/ is the official, legitimate domain for Poki, a popular online gaming platform. No phishing, brand impersonation, or malicious indicators were detected."
+  },
+  {
+    "id": "56f926d0-8fca-4759-ad2c-033cce042314",
+    "requestId": "56f926d0-8fca-4759-ad2c-033cce042314",
+    "scanType": "email",
+    "timestamp": "2026-07-31T11:21:35.078Z",
+    "riskScore": 100,
+    "verdict": "High Risk",
+    "summary": "A phishing email impersonating Microsoft Security Team, using urgency and fear of account suspension to trick the user into clicking a malicious link designed for credential harvesting."
+  },
+  {
+    "id": "635a5c31-0e04-4ebd-9bd5-d581729a8123",
+    "requestId": "635a5c31-0e04-4ebd-9bd5-d581729a8123",
+    "scanType": "email",
+    "timestamp": "2026-07-31T11:22:01.509Z",
+    "riskScore": 0,
+    "verdict": "Safe",
+    "summary": "The email is a standard, low-risk meeting reminder with no indicators of phishing, malicious links, or social engineering."
+  },
+  {
+    "id": "96ed7c3a-1887-4342-9c4e-3a7ae896ef97",
+    "requestId": "96ed7c3a-1887-4342-9c4e-3a7ae896ef97",
+    "scanType": "qr",
+    "timestamp": "2026-07-31T11:28:21.825Z",
+    "riskScore": 15,
+    "verdict": "Safe",
+    "summary": "Decoded Content: https://formbuilder.ccavenue.com/live/acharya-bangalore-b-school-9\n\nThe decoded QR content points to a legitimate CCAvenue form builder page for Acharya Bangalore B-School. While the URL itself appears safe and legitimate, users should always verify that the specific payment or form submission page is accessed through official institutional channels to avoid potential look-alike domain spoofing."
+  },
+  {
+    "id": "250a99fa-3562-4da4-a1c6-1a6291445ee6",
+    "requestId": "250a99fa-3562-4da4-a1c6-1a6291445ee6",
+    "scanType": "screenshot",
+    "timestamp": "2026-07-31T11:32:48.296Z",
+    "riskScore": 0,
+    "verdict": "Safe",
+    "summary": "OCR Content: € 5 C55 2istdev ERA WB a o-oo aS do\n2g » YouTube #8 WhatsApp ChatGPT | Smart, Fa..  ¥ Download Games...\n\nThe analyzed text is from a legitimate developer platform or UI component library interface (likely 21st.dev). It displays a user dashboard with standard navigation options for UI components, templates, and developer tools, alongside common bookmarks like YouTube, WhatsApp, ChatGPT, and GitHub. No security threats or malicious indicators were detected."
   }
 ]

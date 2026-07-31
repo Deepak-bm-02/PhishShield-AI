@@ -7,7 +7,8 @@ export default function QrScannerPage() {
   return (
     <ScannerFramework
       title="QR Code Scanner"
-      description="Upload or drag & drop QR codes to decode and verify their safety."
+      description="Scan QR codes to detect malicious redirects and quishing attempts."
+      scanType="qr"
       analyzeAction={analyzeQr}
       isImage={true}
       validateInput={(val) => !val ? 'Please upload an image file.' : null}

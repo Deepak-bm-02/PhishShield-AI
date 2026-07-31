@@ -18,6 +18,7 @@ export default function UrlScannerPage() {
     <ScannerFramework
       title="URL Scanner"
       description="Scan suspicious links for malicious intent before clicking."
+      scanType="url"
       analyzeAction={analyzeUrl}
       validateInput={(val) => !val || !isValidUrl(val) ? 'Please enter a valid HTTP/HTTPS URL.' : null}
       inputComponent={({ value, onChange, error }) => (

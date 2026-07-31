@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/AppShell';
 import { Button, Skeleton } from '@/components/ui';
-import { fetchHistory } from '@/lib/api/history';
+import { StorageService } from '@/lib/storage';
 import { ThreatReport } from '@/types';
 import { ArrowLeft, Download, Printer, ShieldAlert } from 'lucide-react';
 import { AnalysisResult } from '@/features/scanner/components/AnalysisResult';
@@ -18,21 +18,23 @@ export default function ReportViewerPage() {
 
   useEffect(() => {
     if (!id) return;
-    fetchHistory().then(data => {
-      // Find the record and cast it to ThreatReport format (assuming HistoryRecord matches ThreatReport structure for this demo)
-      const record = data.find(r => r.id === id);
-      if (record) {
-        setReport({
-          riskScore: record.riskScore,
-          verdict: record.verdict,
-          summary: record.summary,
-          threatType: record.threatType || 'None',
-          indicators: (record as any).indicators || [],
-          recommendations: (record as any).recommendations || []
-        } as ThreatReport);
-      }
-      setLoading(false);
-    });
+    const data = StorageService.getHistory();
+    const record = data.find(r => r.id === id);
+    if (record) {
+      setReport({
+        riskScore: record.riskScore,
+        verdict: record.verdict as any,
+        summary: record.summary,
+        threatType: record.threatType || 'None',
+        indicators: (record as any).indicators || [],
+        recommendations: (record as any).recommendations || [],
+        reasons: (record as any).reasons || [],
+        preventionTips: (record as any).preventionTips || [],
+        scanType: record.scanType as any,
+        confidence: 90
+      } as ThreatReport);
+    }
+    setLoading(false);
   }, [id]);
 
   const handlePrint = () => {
@@ -65,7 +67,7 @@ export default function ReportViewerPage() {
     return (
       <AppShell>
         <div className="max-w-4xl mx-auto text-center py-20">
-          <ShieldAlert className="h-16 w-16 text-zinc-700 mx-auto mb-4" />
+          <ShieldAlert className="h-16 w-16 text-neutral mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-foreground mb-2">Report Not Found</h1>
           <p className="text-neutral mb-6">The threat report you are looking for does not exist or was deleted.</p>
           <Button onClick={() => router.push('/history')}>Back to History</Button>
@@ -95,9 +97,9 @@ export default function ReportViewerPage() {
         </div>
 
         <div className="print:block">
-          <div className="hidden print:block mb-8 border-b border-zinc-200 pb-4">
-            <h1 className="text-2xl font-bold text-black">PhishShield AI - Threat Report</h1>
-            <p className="text-sm text-gray-500">ID: {id} | Generated: {new Date().toLocaleString()}</p>
+          <div className="hidden print:block mb-8 border-b border-border pb-4">
+            <h1 className="text-2xl font-bold text-foreground">PhishShield AI - Threat Report</h1>
+            <p className="text-sm text-neutral">ID: {id} | Generated: {new Date().toLocaleString()}</p>
           </div>
           
           <AnalysisResult report={report} />

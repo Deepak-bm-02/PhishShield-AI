@@ -6,19 +6,21 @@ import { ThreatReport } from '@/types';
 import { useToast } from '@/providers';
 import { DEMO_DATA } from '@/lib/demo-data';
 import { AppShell } from '@/components/layout/AppShell';
+import { StorageService } from '@/lib/storage';
 import { motion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
 
 interface ScannerFrameworkProps {
   title: string;
   description: string;
+  scanType: 'email' | 'url' | 'screenshot' | 'qr';
   analyzeAction: (payload: any) => Promise<ThreatReport>;
   inputComponent: (props: { value: any; onChange: (val: any) => void; error?: string }) => React.ReactNode;
   validateInput?: (value: any) => string | null;
   isImage?: boolean;
 }
 
-export function ScannerFramework({ title, description, analyzeAction, inputComponent, validateInput, isImage }: ScannerFrameworkProps) {
+export function ScannerFramework({ title, description, scanType, analyzeAction, inputComponent, validateInput, isImage }: ScannerFrameworkProps) {
   const [input, setInput] = useState<any>('');
   const [error, setError] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
@@ -101,6 +103,7 @@ export function ScannerFramework({ title, description, analyzeAction, inputCompo
             onComplete={() => {
               if (pendingResult) {
                 setResult(pendingResult);
+                StorageService.saveAnalysis(pendingResult, scanType);
                 setLoading(false);
                 toast({ type: 'success', title: 'Analysis Complete', description: 'Threat report generated successfully.' });
               }

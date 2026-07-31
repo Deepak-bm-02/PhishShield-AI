@@ -15,14 +15,21 @@ export class ScreenshotAnalyzer {
 
   async analyze(base64Image: string): Promise<ThreatReport> {
     logger.info('[Analyzer] Extracting text via OCR');
+    const ocrStart = Date.now();
     const ocrText = await OCRService.extractText(base64Image);
+    const ocrDuration = Date.now() - ocrStart;
     
-    logger.info(`[Analyzer] Processing OCR content: ${ocrText.substring(0, 50)}...`);
+    logger.info(`[Analyzer] Processing OCR content: ${ocrText.substring(0, 50)}... | OCR duration: ${ocrDuration}ms`);
     
     const prompt = ScreenshotPromptBuilder.build(ocrText);
     
     try {
+      const geminiStart = Date.now();
       const geminiData = await this.geminiClient.generateJSON(prompt);
+      const geminiDuration = Date.now() - geminiStart;
+      
+      logger.info(`[Analyzer] Gemini generated JSON. | Gemini duration: ${geminiDuration}ms`);
+      
       const riskResult = RiskEngine.calculateRisk(geminiData);
       const report = ThreatFormatter.format('screenshot', riskResult, geminiData);
       

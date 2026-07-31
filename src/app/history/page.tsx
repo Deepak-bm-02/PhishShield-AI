@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
 import { Card, Badge, Button, AlertDialog, Skeleton, EmptyState } from '@/components/ui';
-import { fetchHistory } from '@/lib/api/history';
+import { StorageService } from '@/lib/storage';
 import { HistoryRecord } from '@/types';
 import { Search, Trash2, ChevronLeft, ChevronRight, Eye, ShieldAlert } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -14,6 +14,7 @@ const ITEMS_PER_PAGE = 10;
 export default function HistoryPage() {
   const [history, setHistory] = useState<HistoryRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -21,11 +22,14 @@ export default function HistoryPage() {
   const { toast } = useToast();
 
   useEffect(() => {
-    fetchHistory().then(data => {
-      // Sort by newest first
-      setHistory(data.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
-      setLoading(false);
+    setHistory(StorageService.getHistory());
+    setLoading(false);
+
+    const unsubscribe = StorageService.subscribe(() => {
+      setHistory(StorageService.getHistory());
     });
+
+    return unsubscribe;
   }, []);
 
   const filtered = history.filter(h => 
@@ -37,24 +41,22 @@ export default function HistoryPage() {
   const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
   const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
-  const handleDelete = () => {
+  const confirmDelete = async () => {
     if (!deleteId) return;
-    
-    // Optimistic Delete UI
-    setHistory(prev => prev.filter(h => h.id !== deleteId));
-    setDeleteId(null);
-    
-    // Fake API Call to delete (In real app, call DELETE /api/history?id=...)
-    toast({ 
-      type: 'success', 
-      title: 'Record Deleted', 
-      description: 'The scan record was successfully removed.',
-      // Future: Add action to undo by restoring recordToDelete
-    });
-    
-    // Adjust page if empty
-    if (paginated.length === 1 && currentPage > 1) {
-      setCurrentPage(prev => prev - 1);
+    setIsDeleting(true);
+    try {
+      StorageService.deleteAnalysis(deleteId);
+      toast({ type: 'success', title: 'Deleted', description: 'Record removed successfully.' });
+      
+      // Adjust page if empty
+      if (paginated.length === 1 && currentPage > 1) {
+        setCurrentPage(prev => prev - 1);
+      }
+    } catch (err: any) {
+      toast({ type: 'error', title: 'Error', description: err.message });
+    } finally {
+      setIsDeleting(false);
+      setDeleteId(null);
     }
   };
 
@@ -185,7 +187,7 @@ export default function HistoryPage() {
       <AlertDialog 
         isOpen={!!deleteId}
         onClose={() => setDeleteId(null)}
-        onConfirm={handleDelete}
+        onConfirm={confirmDelete}
         title="Delete Scan Record"
         description="Are you sure you want to delete this scan record? It will be permanently removed from your threat history."
         confirmText="Delete Record"
