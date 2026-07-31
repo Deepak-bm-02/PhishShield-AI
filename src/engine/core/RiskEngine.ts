@@ -9,7 +9,7 @@ export class RiskEngine {
   } {
     // Deterministic scoring based on observations
     let score = 0;
-    let confidence = 90; // Base confidence
+    const confidence = 90; // Base confidence
 
     const indicators: ThreatIndicator[] = observations.indicators || [];
     
