@@ -15,14 +15,16 @@ export class QRAnalyzer {
   async analyze(base64Image: string): Promise<ThreatReport> {
     logger.info(`[Analyzer] Decoding QR Image`);
     const decodeStart = Date.now();
-    const decodedText = await QRDecoder.decode(base64Image);
-    const decodeDuration = Date.now() - decodeStart;
     
-    logger.info(`[Analyzer] Processing QR content: ${decodedText.substring(0, 50)}... | Decode duration: ${decodeDuration}ms`);
-    
-    const prompt = QRPromptBuilder.build(decodedText);
-    
+    let decodedText = '';
     try {
+      decodedText = await QRDecoder.decode(base64Image);
+      const decodeDuration = Date.now() - decodeStart;
+      
+      logger.info(`[Analyzer] Processing QR content: ${decodedText.substring(0, 50)}... | Decode duration: ${decodeDuration}ms`);
+      
+      const prompt = QRPromptBuilder.build(decodedText);
+      
       const geminiStart = Date.now();
       const geminiData = await this.geminiClient.generateJSON(prompt);
       const geminiDuration = Date.now() - geminiStart;
@@ -37,8 +39,8 @@ export class QRAnalyzer {
       
       return report;
     } catch (error: any) {
-      logger.warn(`AI failed for QRAnalyzer, falling back to Rule Engine. Reason: ${error.message}`);
-      return this.fallbackAnalysis(decodedText);
+      logger.warn(`AI or Decode failed for QRAnalyzer, falling back to Rule Engine. Reason: ${error.message}`);
+      return this.fallbackAnalysis(decodedText || error.message);
     }
   }
 

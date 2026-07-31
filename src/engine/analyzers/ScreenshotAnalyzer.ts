@@ -16,14 +16,16 @@ export class ScreenshotAnalyzer {
   async analyze(base64Image: string): Promise<ThreatReport> {
     logger.info('[Analyzer] Extracting text via OCR');
     const ocrStart = Date.now();
-    const ocrText = await OCRService.extractText(base64Image);
-    const ocrDuration = Date.now() - ocrStart;
     
-    logger.info(`[Analyzer] Processing OCR content: ${ocrText.substring(0, 50)}... | OCR duration: ${ocrDuration}ms`);
-    
-    const prompt = ScreenshotPromptBuilder.build(ocrText);
-    
+    let ocrText = '';
     try {
+      ocrText = await OCRService.extractText(base64Image);
+      const ocrDuration = Date.now() - ocrStart;
+      
+      logger.info(`[Analyzer] Processing OCR content: ${ocrText.substring(0, 50)}... | OCR duration: ${ocrDuration}ms`);
+      
+      const prompt = ScreenshotPromptBuilder.build(ocrText);
+      
       const geminiStart = Date.now();
       const geminiData = await this.geminiClient.generateJSON(prompt);
       const geminiDuration = Date.now() - geminiStart;
@@ -38,8 +40,8 @@ export class ScreenshotAnalyzer {
       
       return report;
     } catch (error: any) {
-      logger.warn(`AI failed for ScreenshotAnalyzer, falling back to Rule Engine. Reason: ${error.message}`);
-      return this.fallbackAnalysis(ocrText);
+      logger.warn(`AI or OCR failed for ScreenshotAnalyzer, falling back to Rule Engine. Reason: ${error.message}`);
+      return this.fallbackAnalysis(ocrText || error.message);
     }
   }
 

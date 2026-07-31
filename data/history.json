@@ -61,5 +61,23 @@
     "riskScore": 0,
     "verdict": "Safe",
     "summary": "OCR Content: € 5 C55 2istdev ERA WB a o-oo aS do\n2g » YouTube #8 WhatsApp ChatGPT | Smart, Fa..  ¥ Download Games...\n\nThe analyzed text is from a legitimate developer platform or UI component library interface (likely 21st.dev). It displays a user dashboard with standard navigation options for UI components, templates, and developer tools, alongside common bookmarks like YouTube, WhatsApp, ChatGPT, and GitHub. No security threats or malicious indicators were detected."
+  },
+  {
+    "id": "792875d8-9733-4ffe-a31a-bddab126b994",
+    "requestId": "792875d8-9733-4ffe-a31a-bddab126b994",
+    "scanType": "screenshot",
+    "timestamp": "2026-07-31T11:35:36.035Z",
+    "riskScore": 0,
+    "verdict": "Safe",
+    "summary": "[RULE ENGINE FALLBACK - AI UNAVAILABLE] Local Rule Engine found no obvious malicious text patterns in the image.\n\nOCR Preview: No text detected in the image...."
+  },
+  {
+    "id": "a8aa2bdc-8008-4139-a27f-03ab9e1b1e18",
+    "requestId": "a8aa2bdc-8008-4139-a27f-03ab9e1b1e18",
+    "scanType": "qr",
+    "timestamp": "2026-07-31T11:35:36.286Z",
+    "riskScore": 0,
+    "verdict": "Safe",
+    "summary": "[RULE ENGINE FALLBACK - AI UNAVAILABLE] Local Rule Engine found no obvious malicious patterns in this plain text QR code.\n\nDecoded Content: No valid QR code found in the image."
   }
 ]
