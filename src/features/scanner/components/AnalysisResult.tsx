@@ -18,7 +18,7 @@ export const AnalysisResult = ({ report }: { report: ThreatReport }) => {
     <Card className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex items-start justify-between border-b border-border pb-4">
         <div className="flex items-center gap-4">
-          <div className={\`p-3 rounded-full bg-\${variant}/10 text-\${variant}\`}>
+          <div className={`p-3 rounded-full bg-${variant}/10 text-${variant}`}>
             <Icon size={32} />
           </div>
           <div>

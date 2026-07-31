@@ -63,7 +63,7 @@ export default function DashboardPage() {
               <PieChart>
                 <Pie data={data} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
                   {data.map((entry, index) => (
-                    <Cell key={\`cell-\${index}\`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -81,7 +81,7 @@ export default function DashboardPage() {
                   <p className="font-medium">{record.scanType.toUpperCase()} Scan</p>
                   <p className="text-xs text-neutral">{new Date(record.timestamp).toLocaleString()}</p>
                 </div>
-                <span className={\`text-sm font-semibold \${record.riskScore > 50 ? 'text-danger' : 'text-success'}\`}>
+                <span className={`text-sm font-semibold ${record.riskScore > 50 ? 'text-danger' : 'text-success'}`}>
                   {record.verdict}
                 </span>
               </div>

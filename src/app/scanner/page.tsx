@@ -55,7 +55,7 @@ export default function ScannerPage() {
             <button 
               key={t}
               onClick={() => { setTab(t as any); setResult(null); setInput(''); }}
-              className={\`font-medium transition-colors \${tab === t ? 'text-primary border-b-2 border-primary -mb-[17px]' : 'text-neutral hover:text-foreground'}\`}
+              className={`font-medium transition-colors ${tab === t ? 'text-primary border-b-2 border-primary -mb-[17px]' : 'text-neutral hover:text-foreground'}`}
             >
               {t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
@@ -66,7 +66,7 @@ export default function ScannerPage() {
           <textarea 
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={\`Paste your \${tab} content here...\`}
+            placeholder={`Paste your ${tab} content here...`}
             className="w-full h-32 bg-background border border-border rounded-lg p-4 text-foreground focus:outline-none focus:border-primary resize-none"
           />
           
