@@ -38,19 +38,19 @@ export function CommandPalette() {
 
   return (
     <Dialog isOpen={open} onClose={() => setOpen(false)} title="Command Palette" description="Search actions or navigate quickly." className="max-w-2xl">
-      <div className="flex items-center px-4 border-b border-zinc-800">
-        <Search className="h-5 w-5 text-zinc-500 mr-3" />
+      <div className="flex items-center px-4 border-b border-border">
+        <Search className="h-5 w-5 text-neutral mr-3" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-1 bg-transparent border-0 py-4 focus:ring-0 focus:outline-none text-zinc-100 placeholder:text-zinc-500"
+          className="flex-1 bg-transparent border-0 py-4 focus:ring-0 focus:outline-none text-foreground placeholder:text-neutral"
           placeholder="Type a command or search..."
         />
-        <kbd className="hidden sm:inline-block px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">ESC</kbd>
+        <kbd className="hidden sm:inline-block px-2 py-1 bg-card text-neutral rounded text-xs">ESC</kbd>
       </div>
       <div className="max-h-[300px] overflow-y-auto p-2">
         {filteredActions.length === 0 ? (
-          <p className="p-4 text-center text-zinc-500 text-sm">No results found.</p>
+          <p className="p-4 text-center text-neutral text-sm">No results found.</p>
         ) : (
           filteredActions.map((action) => (
             <button
@@ -59,15 +59,15 @@ export function CommandPalette() {
                 router.push(action.href);
                 setOpen(false);
               }}
-              className="w-full flex items-center justify-between px-4 py-3 hover:bg-zinc-800 rounded-lg text-left transition-colors"
+              className="w-full flex items-center justify-between px-4 py-3 hover:bg-card rounded-lg text-left transition-colors"
             >
-              <div className="flex items-center gap-3 text-zinc-300">
+              <div className="flex items-center gap-3 text-neutral">
                 <action.icon className="h-4 w-4" />
                 <span>{action.name}</span>
               </div>
               <div className="flex gap-1">
                 {action.shortcut.map((key) => (
-                  <kbd key={key} className="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">{key}</kbd>
+                  <kbd key={key} className="px-2 py-1 bg-card text-neutral rounded text-xs">{key}</kbd>
                 ))}
               </div>
             </button>

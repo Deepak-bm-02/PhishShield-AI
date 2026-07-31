@@ -16,7 +16,7 @@ export default function EmailScannerPage() {
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Paste email headers and body here..."
-            className={`min-h-[200px] ${error ? 'border-red-500 focus:ring-red-500' : ''}`}
+            className={`min-h-[120px] ${error ? 'border-red-500 focus:ring-red-500' : ''}`}
           />
           {error && <p className="text-sm text-red-500">{error}</p>}
         </div>

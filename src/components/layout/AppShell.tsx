@@ -5,7 +5,7 @@ import { CommandPalette } from "./CommandPalette";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-zinc-950 flex text-zinc-50">
+    <div className="min-h-screen bg-background flex text-foreground">
       <Sidebar className="hidden md:flex fixed inset-y-0 z-40" />
       
       <div className="flex-1 md:pl-64 flex flex-col min-w-0">

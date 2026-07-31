@@ -67,13 +67,13 @@ export default function HistoryPage() {
         </div>
         
         <div className="relative w-full md:w-64">
-          <Search className="absolute left-3 top-2.5 text-zinc-500" size={18} />
+          <Search className="absolute left-3 top-2.5 text-neutral" size={18} />
           <input 
             type="text" 
             placeholder="Search scans, verdicts..." 
             value={search}
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
-            className="w-full bg-zinc-900 border border-zinc-800 rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full bg-card border border-border rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
       </div>
@@ -98,7 +98,7 @@ export default function HistoryPage() {
           <>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm whitespace-nowrap">
-                <thead className="bg-zinc-900/50 border-b border-zinc-800 text-zinc-400">
+                <thead className="bg-card/50 border-b border-border text-neutral">
                   <tr>
                     <th className="px-6 py-4 font-medium">Scan Type</th>
                     <th className="px-6 py-4 font-medium">Verdict</th>
@@ -108,7 +108,7 @@ export default function HistoryPage() {
                     <th className="px-6 py-4 font-medium text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800/50">
+                <tbody className="divide-y divide-border/50">
                   <AnimatePresence initial={false}>
                     {paginated.map(record => (
                       <motion.tr 
@@ -116,9 +116,9 @@ export default function HistoryPage() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0, x: -20 }}
-                        className="hover:bg-zinc-900/30 transition-colors group"
+                        className="hover:bg-card/30 transition-colors group"
                       >
-                        <td className="px-6 py-4 capitalize font-medium text-zinc-200">
+                        <td className="px-6 py-4 capitalize font-medium text-foreground">
                           {record.scanType}
                         </td>
                         <td className="px-6 py-4">
@@ -131,10 +131,10 @@ export default function HistoryPage() {
                             {record.riskScore}
                           </span>
                         </td>
-                        <td className="px-6 py-4 hidden md:table-cell text-zinc-400 max-w-[200px] truncate">
+                        <td className="px-6 py-4 hidden md:table-cell text-neutral max-w-[200px] truncate">
                           {record.summary || 'No summary available.'}
                         </td>
-                        <td className="px-6 py-4 text-zinc-400">
+                        <td className="px-6 py-4 text-neutral">
                           {new Date(record.timestamp).toLocaleDateString()}
                         </td>
                         <td className="px-6 py-4 text-right">
@@ -155,8 +155,8 @@ export default function HistoryPage() {
             </div>
 
             {/* Pagination */}
-            <div className="px-6 py-4 border-t border-zinc-800 flex items-center justify-between bg-zinc-900/20">
-              <span className="text-sm text-zinc-500">
+            <div className="px-6 py-4 border-t border-border flex items-center justify-between bg-card/20">
+              <span className="text-sm text-neutral">
                 Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length} entries
               </span>
               <div className="flex gap-2">

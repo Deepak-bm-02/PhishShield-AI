@@ -1,0 +1,20 @@
+[
+  {
+    "id": "dc3ffa8a-a04a-46fa-86a1-4c13d0307672",
+    "requestId": "dc3ffa8a-a04a-46fa-86a1-4c13d0307672",
+    "scanType": "url",
+    "timestamp": "2026-07-31T11:06:57.416Z",
+    "riskScore": 0,
+    "verdict": "Safe",
+    "summary": "The URL https://poki.com/ is the official domain for Poki, a popular and legitimate online gaming platform. No phishing, brand impersonation, or malicious indicators were detected."
+  },
+  {
+    "id": "ca23482e-377d-4820-8b36-c36ac3f1dd3d",
+    "requestId": "ca23482e-377d-4820-8b36-c36ac3f1dd3d",
+    "scanType": "url",
+    "timestamp": "2026-07-31T11:10:04.634Z",
+    "riskScore": 100,
+    "verdict": "High Risk",
+    "summary": "The URL attempts to impersonate the legitimate FitGirl Repacks website, which is a well-known video game repacking group. The official site is typically hosted on a different domain (.cc), making this domain a likely typosquatting or mirror site used to distribute cracked software, potentially bundled with malware or adware."
+  }
+]

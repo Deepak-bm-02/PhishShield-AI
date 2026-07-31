@@ -1,7 +1,7 @@
 import { HistoryRecord } from '../../types';
 
 export async function fetchHistory(): Promise<HistoryRecord[]> {
-  const res = await fetch('/api/history', { method: 'GET' });
+  const res = await fetch('/api/history', { method: 'GET', cache: 'no-store' });
   const parsed = await res.json();
   
   if (!res.ok || !parsed.success) {

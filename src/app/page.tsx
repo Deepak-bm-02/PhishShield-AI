@@ -6,18 +6,18 @@ import { Shield, Search, Zap, ChevronRight, Globe, Smartphone, QrCode } from 'lu
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 overflow-x-hidden selection:bg-blue-500/30">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-blue-500/30">
       {/* Top Navbar */}
-      <header className="fixed top-0 w-full z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800">
+      <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl">
             <Shield className="h-6 w-6 text-blue-500" />
             <span>PhishShield AI</span>
           </div>
-          <nav className="hidden md:flex gap-8 text-sm font-medium text-zinc-400">
-            <a href="#features" className="hover:text-zinc-50 transition-colors">Features</a>
-            <a href="#how-it-works" className="hover:text-zinc-50 transition-colors">How it Works</a>
-            <a href="#stats" className="hover:text-zinc-50 transition-colors">Statistics</a>
+          <nav className="hidden md:flex gap-8 text-sm font-medium text-neutral">
+            <a href="#features" className="hover:text-foreground transition-colors">Features</a>
+            <a href="#how-it-works" className="hover:text-foreground transition-colors">How it Works</a>
+            <a href="#stats" className="hover:text-foreground transition-colors">Statistics</a>
           </nav>
           <div className="flex gap-4">
             <Link href="/dashboard">
@@ -33,7 +33,7 @@ export default function LandingPage() {
       <main>
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-zinc-950 to-zinc-950 -z-10" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-background to-background -z-10" />
           <div className="max-w-7xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ export default function LandingPage() {
                   for the Modern Web
                 </span>
               </h1>
-              <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-10">
+              <p className="text-lg md:text-xl text-neutral max-w-2xl mx-auto mb-10">
                 PhishShield AI analyzes emails, URLs, screenshots, and QR codes instantly using advanced Gemini models to protect you from sophisticated phishing attacks.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -69,11 +69,11 @@ export default function LandingPage() {
         </section>
 
         {/* Features Grid */}
-        <section id="features" className="py-24 bg-zinc-900/50 border-y border-zinc-800">
+        <section id="features" className="py-24 bg-card/50 border-y border-border">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Unified Threat Intelligence</h2>
-              <p className="text-zinc-400 max-w-2xl mx-auto">One platform to scan and detect anomalies across all your attack vectors.</p>
+              <p className="text-neutral max-w-2xl mx-auto">One platform to scan and detect anomalies across all your attack vectors.</p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -89,13 +89,13 @@ export default function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl hover:border-zinc-700 transition-colors"
+                  className="bg-card border border-border p-6 rounded-2xl hover:border-border transition-colors"
                 >
                   <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-6">
                     <feature.icon className="h-6 w-6 text-blue-400" />
                   </div>
                   <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">{feature.desc}</p>
+                  <p className="text-neutral text-sm leading-relaxed">{feature.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -121,7 +121,7 @@ export default function LandingPage() {
                   className="text-center"
                 >
                   <div className="text-4xl md:text-5xl font-extrabold text-white mb-2">{stat.value}</div>
-                  <div className="text-sm font-medium text-zinc-400 uppercase tracking-wider">{stat.label}</div>
+                  <div className="text-sm font-medium text-neutral uppercase tracking-wider">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -129,7 +129,7 @@ export default function LandingPage() {
         </section>
 
         {/* How It Works */}
-        <section id="how-it-works" className="py-24 bg-zinc-900/30">
+        <section id="how-it-works" className="py-24 bg-card/30">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">How PhishShield Works</h2>
@@ -137,21 +137,21 @@ export default function LandingPage() {
             
             <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
               <div className="flex-1 text-center p-6">
-                <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-zinc-700 text-xl font-bold text-blue-400">1</div>
+                <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center mx-auto mb-4 border border-border text-xl font-bold text-blue-400">1</div>
                 <h3 className="text-xl font-bold mb-2">Input Data</h3>
-                <p className="text-zinc-400 text-sm">Paste a URL, upload an EML file, or drop a screenshot.</p>
+                <p className="text-neutral text-sm">Paste a URL, upload an EML file, or drop a screenshot.</p>
               </div>
-              <div className="hidden md:block w-16 h-0.5 bg-zinc-800"></div>
+              <div className="hidden md:block w-16 h-0.5 bg-card"></div>
               <div className="flex-1 text-center p-6">
-                <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-zinc-700 text-xl font-bold text-blue-400">2</div>
+                <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center mx-auto mb-4 border border-border text-xl font-bold text-blue-400">2</div>
                 <h3 className="text-xl font-bold mb-2">AI Analysis</h3>
-                <p className="text-zinc-400 text-sm">Our Gemini-powered Risk Engine evaluates the content.</p>
+                <p className="text-neutral text-sm">Our Gemini-powered Risk Engine evaluates the content.</p>
               </div>
-              <div className="hidden md:block w-16 h-0.5 bg-zinc-800"></div>
+              <div className="hidden md:block w-16 h-0.5 bg-card"></div>
               <div className="flex-1 text-center p-6">
-                <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-zinc-700 text-xl font-bold text-blue-400">3</div>
+                <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center mx-auto mb-4 border border-border text-xl font-bold text-blue-400">3</div>
                 <h3 className="text-xl font-bold mb-2">Get Verdict</h3>
-                <p className="text-zinc-400 text-sm">Receive a clear Safe, Suspicious, or High Risk verdict instantly.</p>
+                <p className="text-neutral text-sm">Receive a clear Safe, Suspicious, or High Risk verdict instantly.</p>
               </div>
             </div>
           </div>
@@ -160,9 +160,9 @@ export default function LandingPage() {
         {/* CTA */}
         <section className="py-24 px-6 relative overflow-hidden">
           <div className="absolute inset-0 bg-blue-600/10 blur-[100px] -z-10" />
-          <div className="max-w-4xl mx-auto bg-zinc-900 border border-zinc-800 rounded-3xl p-8 md:p-16 text-center shadow-2xl">
+          <div className="max-w-4xl mx-auto bg-card border border-border rounded-3xl p-8 md:p-16 text-center shadow-2xl">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to secure your workspace?</h2>
-            <p className="text-zinc-400 mb-10 text-lg max-w-2xl mx-auto">
+            <p className="text-neutral mb-10 text-lg max-w-2xl mx-auto">
               Join thousands of users leveraging PhishShield AI to proactively stop credential harvesting and malware.
             </p>
             <Link href="/dashboard">
@@ -174,17 +174,17 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-zinc-800 py-12 bg-zinc-950">
+      <footer className="border-t border-border py-12 bg-background">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2 font-bold text-lg">
             <Shield className="h-5 w-5 text-blue-500" />
             PhishShield AI
           </div>
-          <p className="text-zinc-500 text-sm">© {new Date().getFullYear()} PhishShield AI. All rights reserved.</p>
+          <p className="text-neutral text-sm">© {new Date().getFullYear()} PhishShield AI. All rights reserved.</p>
           <div className="flex gap-4">
-            <a href="#" className="text-zinc-500 hover:text-zinc-300">Privacy</a>
-            <a href="#" className="text-zinc-500 hover:text-zinc-300">Terms</a>
-            <a href="#" className="text-zinc-500 hover:text-zinc-300">Security</a>
+            <a href="#" className="text-neutral hover:text-neutral">Privacy</a>
+            <a href="#" className="text-neutral hover:text-neutral">Terms</a>
+            <a href="#" className="text-neutral hover:text-neutral">Security</a>
           </div>
         </div>
       </footer>

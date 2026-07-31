@@ -16,7 +16,7 @@ export default function AboutPage() {
     <AppShell>
       <div className="mb-8">
         <h1 className="text-3xl font-bold">About PhishShield AI</h1>
-        <p className="text-zinc-400">System diagnostics and version information.</p>
+        <p className="text-neutral">System diagnostics and version information.</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
@@ -26,20 +26,20 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold">Version Info</h2>
           </div>
           <div className="space-y-4">
-            <div className="flex justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Product</span>
+            <div className="flex justify-between border-b border-border pb-2">
+              <span className="text-neutral">Product</span>
               <span className="font-medium">PhishShield AI</span>
             </div>
-            <div className="flex justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Version</span>
+            <div className="flex justify-between border-b border-border pb-2">
+              <span className="text-neutral">Version</span>
               <span className="font-medium">{health?.version || '0.1.0'}</span>
             </div>
-            <div className="flex justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Environment</span>
+            <div className="flex justify-between border-b border-border pb-2">
+              <span className="text-neutral">Environment</span>
               <span className="font-medium">{health?.environment || 'production'}</span>
             </div>
-            <div className="flex justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Core Architecture</span>
+            <div className="flex justify-between border-b border-border pb-2">
+              <span className="text-neutral">Core Architecture</span>
               <span className="font-medium">Next.js + Gemini</span>
             </div>
           </div>
@@ -52,29 +52,29 @@ export default function AboutPage() {
           </div>
           {health ? (
             <div className="space-y-4">
-              <div className="flex justify-between border-b border-zinc-800 pb-2">
-                <span className="text-zinc-400">Backend API</span>
+              <div className="flex justify-between border-b border-border pb-2">
+                <span className="text-neutral">Backend API</span>
                 <span className="font-medium text-emerald-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-400" /> {health.status}</span>
               </div>
-              <div className="flex justify-between border-b border-zinc-800 pb-2">
-                <span className="text-zinc-400">Uptime</span>
+              <div className="flex justify-between border-b border-border pb-2">
+                <span className="text-neutral">Uptime</span>
                 <span className="font-medium">{Math.floor(health.uptime / 60)} minutes</span>
               </div>
-              <div className="flex justify-between border-b border-zinc-800 pb-2">
-                <span className="text-zinc-400">Last Checked</span>
+              <div className="flex justify-between border-b border-border pb-2">
+                <span className="text-neutral">Last Checked</span>
                 <span className="font-medium">{new Date(health.timestamp).toLocaleTimeString()}</span>
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-2 text-zinc-400">
+            <div className="flex items-center gap-2 text-neutral">
               <Server className="h-5 w-5 animate-pulse" /> Loading diagnostics...
             </div>
           )}
         </Card>
         
-        <Card className="md:col-span-2 p-6 bg-blue-900/10 border-blue-900/50">
+        <Card className="md:col-span-2 p-6 bg-blue-50/50 border-blue-200">
           <h3 className="text-lg font-semibold text-blue-400 mb-2">Hackathon Project Statement</h3>
-          <p className="text-zinc-300 leading-relaxed">
+          <p className="text-neutral leading-relaxed">
             PhishShield AI was developed as a next-generation security operations center designed to protect users against zero-day phishing attacks, credential harvesting, and malware delivery mechanisms using the power of Google&apos;s Gemini Large Language Models.
           </p>
         </Card>

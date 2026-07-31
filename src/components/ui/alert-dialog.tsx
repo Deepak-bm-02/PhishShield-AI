@@ -41,7 +41,7 @@ export function AlertDialog({
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="w-full max-w-md bg-zinc-900 border border-zinc-800 shadow-2xl rounded-xl overflow-hidden"
+              className="w-full max-w-md bg-card border border-border shadow-2xl rounded-xl overflow-hidden"
             >
               <div className="p-6">
                 <div className="flex gap-4">
@@ -49,12 +49,12 @@ export function AlertDialog({
                     <AlertTriangle className={`h-5 w-5 ${isDestructive ? 'text-red-500' : 'text-blue-500'}`} />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-zinc-100">{title}</h2>
-                    <p className="text-sm text-zinc-400 mt-2">{description}</p>
+                    <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+                    <p className="text-sm text-neutral mt-2">{description}</p>
                   </div>
                 </div>
               </div>
-              <div className="px-6 py-4 bg-zinc-950/50 border-t border-zinc-800 flex justify-end gap-3">
+              <div className="px-6 py-4 bg-background/50 border-t border-border flex justify-end gap-3">
                 <Button variant="secondary" onClick={onClose}>{cancelText}</Button>
                 <Button 
                   onClick={() => {

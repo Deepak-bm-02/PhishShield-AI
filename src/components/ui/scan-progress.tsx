@@ -50,7 +50,7 @@ export function ScanProgressTimeline({ onComplete }: ScanProgressTimelineProps) 
             <div key={stageName} className="flex items-center gap-4 relative">
               {/* Connecting line */}
               {index !== STAGES.length - 1 && (
-                <div className={`absolute left-[11px] top-6 w-[2px] h-6 transition-colors duration-300 ${isCompleted ? 'bg-blue-500' : 'bg-zinc-800'}`} />
+                <div className={`absolute left-[11px] top-6 w-[2px] h-6 transition-colors duration-300 ${isCompleted ? 'bg-blue-500' : 'bg-card'}`} />
               )}
               
               <div className="relative z-10 shrink-0">
@@ -65,7 +65,7 @@ export function ScanProgressTimeline({ onComplete }: ScanProgressTimelineProps) 
                 )}
               </div>
               
-              <div className={`flex-1 transition-colors duration-300 ${isCompleted ? 'text-zinc-300' : isActive ? 'text-white font-medium' : 'text-zinc-600'}`}>
+              <div className={`flex-1 transition-colors duration-300 ${isCompleted ? 'text-neutral' : isActive ? 'text-white font-medium' : 'text-zinc-600'}`}>
                 {stageName}
               </div>
             </div>

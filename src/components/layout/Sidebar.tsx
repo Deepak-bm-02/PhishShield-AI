@@ -32,8 +32,8 @@ export function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
 
   return (
-    <aside className={cn("flex flex-col w-64 bg-zinc-950 border-r border-zinc-800 text-zinc-300", className)}>
-      <div className="flex items-center gap-3 p-6 font-bold text-xl text-zinc-100">
+    <aside className={cn("flex flex-col w-64 bg-background border-r border-border text-neutral", className)}>
+      <div className="flex items-center gap-3 p-6 font-bold text-xl text-foreground">
         <ShieldCheck className="h-7 w-7 text-blue-500" />
         <span>PhishShield AI</span>
       </div>
@@ -50,25 +50,25 @@ export function Sidebar({ className }: { className?: string }) {
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                 isActive 
                   ? "bg-blue-600/10 text-blue-500" 
-                  : "hover:bg-zinc-900 hover:text-zinc-100"
+                  : "hover:bg-card hover:text-foreground"
               )}
             >
-              <Icon className={cn("h-5 w-5", isActive ? "text-blue-500" : "text-zinc-500")} />
+              <Icon className={cn("h-5 w-5", isActive ? "text-blue-500" : "text-neutral")} />
               {item.label}
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-4 border-t border-zinc-800">
-        <div className="bg-zinc-900 p-3 rounded-lg border border-zinc-800">
-          <p className="text-xs text-zinc-500 mb-1">System Status</p>
+      <div className="p-4 border-t border-border">
+        <div className="bg-card p-3 rounded-lg border border-border">
+          <p className="text-xs text-neutral mb-1">System Status</p>
           <div className="flex items-center gap-2">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
-            <span className="text-sm text-zinc-300 font-medium">All Systems Operational</span>
+            <span className="text-sm text-neutral font-medium">All Systems Operational</span>
           </div>
         </div>
       </div>

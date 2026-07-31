@@ -5,6 +5,7 @@ import { AnalysisResult } from '@/features/scanner/components/AnalysisResult';
 import { ThreatReport } from '@/types';
 import { useToast } from '@/providers';
 import { DEMO_DATA } from '@/lib/demo-data';
+import { AppShell } from '@/components/layout/AppShell';
 import { motion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
 
@@ -68,11 +69,12 @@ export function ScannerFramework({ title, description, analyzeAction, inputCompo
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <AppShell>
+      <div className="flex flex-col gap-6 max-w-4xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold">{title}</h1>
-          <p className="text-zinc-400">{description}</p>
+          <p className="text-neutral">{description}</p>
         </div>
         <Button variant="secondary" onClick={loadDemo}>Load Demo</Button>
       </div>
@@ -126,6 +128,7 @@ export function ScannerFramework({ title, description, analyzeAction, inputCompo
           </div>
         </motion.div>
       )}
-    </div>
+      </div>
+    </AppShell>
   );
 }

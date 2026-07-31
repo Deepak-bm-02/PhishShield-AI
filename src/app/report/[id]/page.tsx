@@ -66,8 +66,8 @@ export default function ReportViewerPage() {
       <AppShell>
         <div className="max-w-4xl mx-auto text-center py-20">
           <ShieldAlert className="h-16 w-16 text-zinc-700 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-zinc-100 mb-2">Report Not Found</h1>
-          <p className="text-zinc-500 mb-6">The threat report you are looking for does not exist or was deleted.</p>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Report Not Found</h1>
+          <p className="text-neutral mb-6">The threat report you are looking for does not exist or was deleted.</p>
           <Button onClick={() => router.push('/history')}>Back to History</Button>
         </div>
       </AppShell>
@@ -81,12 +81,12 @@ export default function ReportViewerPage() {
           <div>
             <button 
               onClick={() => router.back()}
-              className="flex items-center text-sm text-zinc-400 hover:text-zinc-100 mb-4 transition-colors"
+              className="flex items-center text-sm text-neutral hover:text-foreground mb-4 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-1" /> Back
             </button>
             <h1 className="text-3xl font-bold">Threat Report</h1>
-            <p className="text-zinc-500">ID: {id}</p>
+            <p className="text-neutral">ID: {id}</p>
           </div>
           <div className="flex gap-2">
             <Button variant="secondary" onClick={handleDownload}><Download className="h-4 w-4 mr-2" /> JSON</Button>

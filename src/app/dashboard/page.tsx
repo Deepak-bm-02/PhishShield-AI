@@ -180,7 +180,7 @@ export default function ThreatIntelligenceCenter() {
         <Card className="flex flex-col items-center justify-center text-center">
           <h2 className="font-semibold text-lg w-full text-left mb-4">Security Score</h2>
           <div className="h-48 w-full relative flex items-center justify-center">
-            <ClientOnly fallback={<div className="h-full w-full bg-zinc-900/50 rounded-full animate-pulse" />}>
+            <ClientOnly fallback={<div className="h-full w-full bg-card/50 rounded-full animate-pulse" />}>
               <ResponsiveContainer width="100%" height="100%">
                 <RadialBarChart 
                 cx="50%" cy="50%" 
@@ -204,7 +204,7 @@ export default function ThreatIntelligenceCenter() {
         <Card className="md:col-span-2">
           <h2 className="font-semibold text-lg mb-4">Severity Distribution</h2>
           <div className="h-48">
-            <ClientOnly fallback={<div className="h-full w-full bg-zinc-900/50 animate-pulse" />}>
+            <ClientOnly fallback={<div className="h-full w-full bg-card/50 animate-pulse" />}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={severityData} layout="vertical" margin={{ top: 0, right: 30, left: 20, bottom: 0 }}>
                 <XAxis type="number" hide />
@@ -227,7 +227,7 @@ export default function ThreatIntelligenceCenter() {
         <Card>
           <h2 className="font-semibold text-lg mb-4">Scan Distribution</h2>
           <div className="h-64">
-            <ClientOnly fallback={<div className="h-full w-full bg-zinc-900/50 animate-pulse" />}>
+            <ClientOnly fallback={<div className="h-full w-full bg-card/50 animate-pulse" />}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                 <Pie data={distributionData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
@@ -247,7 +247,7 @@ export default function ThreatIntelligenceCenter() {
         <Card>
           <h2 className="font-semibold text-lg mb-4">Top Threat Categories</h2>
           <div className="h-64">
-            <ClientOnly fallback={<div className="h-full w-full bg-zinc-900/50 animate-pulse" />}>
+            <ClientOnly fallback={<div className="h-full w-full bg-card/50 animate-pulse" />}>
               {categoryData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={categoryData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>

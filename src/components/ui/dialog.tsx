@@ -32,18 +32,18 @@ export function Dialog({ isOpen, onClose, title, description, children, classNam
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ type: "spring", duration: 0.3, bounce: 0 }}
               className={cn(
-                "pointer-events-auto w-full max-w-lg bg-zinc-900 border border-zinc-800 shadow-2xl rounded-xl overflow-hidden",
+                "pointer-events-auto w-full max-w-lg bg-card border border-border shadow-2xl rounded-xl overflow-hidden",
                 className
               )}
             >
-              <div className="px-6 py-4 border-b border-zinc-800 flex items-center justify-between">
+              <div className="px-6 py-4 border-b border-border flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-zinc-100">{title}</h2>
-                  {description && <p className="text-sm text-zinc-400 mt-1">{description}</p>}
+                  <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+                  {description && <p className="text-sm text-neutral mt-1">{description}</p>}
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-1 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 rounded-full transition-colors"
+                  className="p-1 text-neutral hover:text-foreground hover:bg-card rounded-full transition-colors"
                 >
                   <X className="h-5 w-5" />
                 </button>

@@ -81,7 +81,7 @@ export default function AssistantPage() {
         <div className="mb-6 flex justify-between items-end">
           <div>
             <h1 className="text-3xl font-bold">AI Security Assistant</h1>
-            <p className="text-zinc-400">Ask questions about security best practices.</p>
+            <p className="text-neutral">Ask questions about security best practices.</p>
           </div>
           <Button variant="secondary" onClick={() => setShowClearConfirm(true)}>
             <Trash2 className="h-4 w-4 mr-2" /> Clear Chat
@@ -101,11 +101,11 @@ export default function AssistantPage() {
                   <div className={`h-10 w-10 shrink-0 rounded-full flex items-center justify-center shadow-md ${m.role === 'user' ? 'bg-blue-600' : 'bg-emerald-600'}`}>
                     {m.role === 'user' ? <User className="h-5 w-5 text-white" /> : <Bot className="h-5 w-5 text-white" />}
                   </div>
-                  <div className={`relative px-5 py-4 rounded-2xl max-w-[85%] shadow-sm ${m.role === 'user' ? 'bg-blue-600 text-white rounded-tr-sm' : 'bg-zinc-800 text-zinc-100 rounded-tl-sm'}`}>
+                  <div className={`relative px-5 py-4 rounded-2xl max-w-[85%] shadow-sm ${m.role === 'user' ? 'bg-blue-600 text-white rounded-tr-sm' : 'bg-card text-foreground rounded-tl-sm'}`}>
                     {m.role === 'assistant' && (
                       <button 
                         onClick={() => copyToClipboard(m.text, m.id)}
-                        className="absolute top-2 right-2 p-1.5 bg-zinc-900/50 hover:bg-zinc-700 rounded-md text-zinc-400 hover:text-white opacity-0 group-hover:opacity-100 transition-all"
+                        className="absolute top-2 right-2 p-1.5 bg-card/50 hover:bg-border rounded-md text-neutral hover:text-white opacity-0 group-hover:opacity-100 transition-all"
                       >
                         {copiedId === m.id ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
                       </button>
@@ -124,10 +124,10 @@ export default function AssistantPage() {
                   <div className="h-10 w-10 shrink-0 rounded-full flex items-center justify-center shadow-md bg-emerald-600">
                     <Bot className="h-5 w-5 text-white" />
                   </div>
-                  <div className="px-5 py-4 rounded-2xl max-w-[85%] bg-zinc-800 rounded-tl-sm flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-zinc-500 animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-2 h-2 rounded-full bg-zinc-500 animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-2 h-2 rounded-full bg-zinc-500 animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <div className="px-5 py-4 rounded-2xl max-w-[85%] bg-card rounded-tl-sm flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-neutral animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-neutral animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-neutral animate-bounce" style={{ animationDelay: '300ms' }} />
                   </div>
                 </motion.div>
               )}
@@ -135,14 +135,14 @@ export default function AssistantPage() {
             <div ref={endRef} />
           </div>
 
-          <div className="p-4 border-t border-zinc-800 bg-zinc-900/50">
+          <div className="p-4 border-t border-border bg-card/50">
             {messages.length === 1 && (
               <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
                 {SUGGESTIONS.map(s => (
                   <button 
                     key={s} 
                     onClick={() => handleSend(s)}
-                    className="shrink-0 px-3 py-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-sm text-zinc-300 transition-colors border border-zinc-700"
+                    className="shrink-0 px-3 py-1.5 rounded-full bg-card hover:bg-border text-sm text-neutral transition-colors border border-border"
                   >
                     {s}
                   </button>

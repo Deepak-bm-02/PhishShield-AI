@@ -3,6 +3,8 @@ import { HistoryStorage } from '../../../storage/HistoryStorage';
 import { createRequestContext } from '../../../lib/requestContext';
 import { successResponse } from '../../../lib/api/response';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   const ctx = createRequestContext(req);
   const data = await HistoryStorage.getHistory();

@@ -69,7 +69,7 @@ export function Upload({ onFileSelect, accept = "image/*", maxSizeMB = 5 }: Uplo
     <div
       className={cn(
         "relative rounded-xl border-2 border-dashed transition-all cursor-pointer overflow-hidden group",
-        dragActive ? "border-blue-500 bg-blue-500/10" : "border-zinc-800 bg-zinc-900/50 hover:border-zinc-700 hover:bg-zinc-900"
+        dragActive ? "border-blue-500 bg-blue-500/10" : "border-border bg-card/50 hover:border-border hover:bg-card"
       )}
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}
@@ -92,13 +92,13 @@ export function Upload({ onFileSelect, accept = "image/*", maxSizeMB = 5 }: Uplo
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             exit={{ opacity: 0 }}
-            className="flex flex-col items-center justify-center py-12 px-4 text-center"
+            className="flex flex-col items-center justify-center py-8 px-4 text-center"
           >
             <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
               <UploadCloud className="h-6 w-6 text-blue-400" />
             </div>
-            <p className="text-zinc-200 font-medium mb-1">Click or drag file to this area to upload</p>
-            <p className="text-zinc-500 text-sm">Supports {accept} up to {maxSizeMB}MB</p>
+            <p className="text-foreground font-medium mb-1">Click or drag file to this area to upload</p>
+            <p className="text-neutral text-sm">Supports {accept} up to {maxSizeMB}MB</p>
           </motion.div>
         ) : (
           <motion.div 
@@ -109,7 +109,7 @@ export function Upload({ onFileSelect, accept = "image/*", maxSizeMB = 5 }: Uplo
           >
             <button 
               onClick={removeFile}
-              className="absolute top-2 right-2 p-1 bg-zinc-950/80 rounded-full text-zinc-400 hover:text-white transition-colors"
+              className="absolute top-2 right-2 p-1 bg-background/80 rounded-full text-neutral hover:text-white transition-colors"
             >
               <X className="h-4 w-4" />
             </button>
@@ -117,12 +117,12 @@ export function Upload({ onFileSelect, accept = "image/*", maxSizeMB = 5 }: Uplo
               // eslint-disable-next-line @next/next/no-img-element
               <img src={preview} alt="Preview" className="max-h-48 rounded-lg object-contain shadow-lg mb-4" />
             ) : (
-              <div className="h-24 w-24 rounded-lg bg-zinc-800 flex items-center justify-center mb-4">
-                <File className="h-10 w-10 text-zinc-500" />
+              <div className="h-24 w-24 rounded-lg bg-card flex items-center justify-center mb-4">
+                <File className="h-10 w-10 text-neutral" />
               </div>
             )}
-            <p className="text-sm font-medium text-zinc-200 truncate max-w-full px-4">{selectedFile.name}</p>
-            <p className="text-xs text-zinc-500 mt-1">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
+            <p className="text-sm font-medium text-foreground truncate max-w-full px-4">{selectedFile.name}</p>
+            <p className="text-xs text-neutral mt-1">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
           </motion.div>
         )}
       </AnimatePresence>
